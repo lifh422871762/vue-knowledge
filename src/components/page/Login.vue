@@ -52,8 +52,13 @@
           if (valid) {
             login(this.ruleForm.username,this.ruleForm.password).then( res => {
               //登录成功回调函数
-              localStorage.setItem('ms_username', this.ruleForm.username);
-              this.$router.push('/');
+              if(res.success){
+                localStorage.setItem('ms_username', this.ruleForm.username);
+                this.$router.push('/');
+              }else {
+                this.message = res.message;
+                return false;
+              }
             }).catch(res => {
               //登录失败回调函数
               this.message = res.message;
