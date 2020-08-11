@@ -137,6 +137,6 @@
 <style>
   .content {
     padding: 0px;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
 </style>
