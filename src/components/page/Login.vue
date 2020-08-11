@@ -30,7 +30,7 @@
   export default {
     data: function () {
       return {
-        message: '123',
+        message: '',
         ruleForm: {
           username: '',
           password: ''
@@ -48,20 +48,20 @@
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          console.log(valid);
           if (valid) {
             login(this.ruleForm.username,this.ruleForm.password).then( res => {
               //登录成功回调函数
-              if(res.success){
+              const data = res.data;
+              if(data.success){
                 localStorage.setItem('ms_username', this.ruleForm.username);
                 this.$router.push('/');
               }else {
-                this.message = res.message;
+                this.message = data.message;
                 return false;
               }
             }).catch(res => {
               //登录失败回调函数
-              this.message = res.message;
+              this.message = res.data.message;
               return false;
             })
           } else {

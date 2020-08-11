@@ -40,6 +40,16 @@
                 items: [
                     {
                         icon: 'el-icon-lx-home',
+                        title: '系统管理',
+                        subs: [
+                            {
+                                index: 'user',
+                                title: '用户管理'
+                            }
+                        ]
+                    },
+                    {
+                        icon: 'el-icon-lx-home',
                         index: 'dashboard',
                         title: '系统首页'
                     },

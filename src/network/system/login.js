@@ -1,11 +1,17 @@
 import {request} from "../request";
 
-export function login(username,password) {
+export function login(loginName,loginPassword) {
   return request({
     url: '/login',
     params: {
-      username,
-      password
+      loginName,
+      loginPassword
     }
+  })
+}
+
+export function loginout() {
+  return request({
+    url: '/loginout'
   })
 }

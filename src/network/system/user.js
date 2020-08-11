@@ -1,7 +1,11 @@
 import {request} from "../request";
 
-export function getUserData() {
+export function search(page,size,status,loginName) {
   return request({
-    url: '/home/getUserData'
+    url: '/user/search',
+    params: {
+      page,size,status,loginName
+    }
   })
 }
+

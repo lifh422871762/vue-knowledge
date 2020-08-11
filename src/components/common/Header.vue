@@ -45,6 +45,8 @@
 </template>
 <script>
     import bus from '../common/bus';
+    import {loginout} from "network/system/login";
+
     export default {
         data() {
             return {
@@ -64,8 +66,12 @@
             // 用户名下拉菜单选择事件
             handleCommand(command) {
                 if(command == 'loginout'){
-                    localStorage.removeItem('ms_username')
-                    this.$router.push('/login');
+                    loginout().then( res => {
+                        if(res.data.success){
+                            localStorage.removeItem('ms_username')
+                            this.$router.push('/login');
+                        }
+                    })
                 }
             },
             // 侧边栏折叠
