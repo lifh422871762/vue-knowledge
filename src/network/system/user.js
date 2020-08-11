@@ -9,3 +9,12 @@ export function search(page,size,status,loginName) {
   })
 }
 
+export function deleteById(id) {
+  return request({
+    url: '/user/delete',
+    params: {
+      id
+    }
+  })
+}
+
