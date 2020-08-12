@@ -2,16 +2,28 @@
   <div style="background-color: #ffffff;height: 100%;width: 100%;">
     <div style="padding: 10px;">
       <div style="padding-bottom: 30px;padding-top: 10px;">
-        <el-row :gutter="10">
-          <el-col :span="2"><div style="font-size:14px;color: #a3a3a5;padding-top: 5px;padding-left: 10px;">用户名:</div></el-col>
+        <el-row :gutter="0">
+          <el-col :span="2"><div style="font-size:12px;color: #a3a3a5;padding-top: 5px;padding-left: 10px;">用户名:</div></el-col>
           <el-col :span="4"><el-input v-model="loginName" placeholder="请输入用户名"></el-input></el-col>
-          <el-col :span="2"><div style="font-size:14px;color: #a3a3a5;padding-top: 5px;padding-left: 20px;">状态:</div></el-col>
+          <el-col :span="2"><div style="font-size:12px;color: #a3a3a5;padding-top: 5px;padding-left: 20px;">状态:</div></el-col>
           <el-col :span="4">
             <el-select v-model="status" placeholder="请选择">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-col>
-          <el-col :span="1">
+          <el-col :span="2"><div style="font-size:12px;color: #a3a3a5;padding-top: 5px;padding-left: 45px;">创建日期:</div></el-col>
+          <el-col :span="6">
+            <div class="block">
+              <el-date-picker
+                      v-model="date"
+                      type="daterange"
+                      range-separator="至"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期">
+              </el-date-picker>
+            </div>
+          </el-col>
+          <el-col :span="4">
             <el-button type="primary" @click="searchUserList">查 询</el-button>
           </el-col>
         </el-row>
@@ -20,14 +32,14 @@
         <h5>用户列表</h5>
       </div>
       <el-table :data="parseTableData" size="mini" border stripe style="width: 100%" highlight-current-row>
-        <el-table-column fixed prop="name" label="姓名" align="center"/>
+        <el-table-column prop="name" label="姓名" align="center"/>
         <el-table-column prop="loginName" label="用户名" align="center"/>
         <el-table-column prop="email" label="邮箱" align="center"/>
         <el-table-column prop="phone" label="手机号" align="center"/>
         <el-table-column prop="seq" label="排序" align="center"/>
         <el-table-column prop="status" label="状态" align="center"/>
         <el-table-column prop="describe" label="描述" align="center"/>
-        <el-table-column fixed="right" align="center" label="操作">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
             <el-button type="text" size="small">编辑</el-button>
@@ -115,20 +127,15 @@
     },
     data() {
       return {
-        options: [{
-          value: '1',
-          label: '可用'
-        }, {
-          value: '2',
-          label: '不可用'
-        }],
+        options: [{value: '1',label: '可用'}, {value: '2',label: '不可用'}],
         tableData: [],
         total: null,
         centerDialogVisible: false,
         currentPage:1,
         pageSize:10,
         status: null,
-        loginName: ""
+        loginName: "",
+        date: ""
       }
     }
   }
