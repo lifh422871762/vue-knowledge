@@ -15,7 +15,8 @@
           <el-col :span="7">
             <div class="block">
               <el-date-picker
-                      v-model="params.dates"
+                      v-model="dates"
+                      value-format="yyyy-MM-dd HH:mm:ss"
                       type="daterange"
                       range-separator="至"
                       start-placeholder="开始日期"
@@ -45,7 +46,7 @@
       </div>
       <el-table :data="parseTableData" size="mini" border stripe style="width: 100%" highlight-current-row>
         <el-table-column  v-for="item in table.tableColumn" :prop="item.prop" :label="item.label" :align="item.align"/>
-        <el-table-column align="center"  label="操作">
+        <el-table-column align="center" fixed="right"  label="操作">
           <template slot-scope="scope">
             <el-row :gutter="0">
               <el-col :span="8"><i class="el-icon-search" @click="handleClick(scope.row)"></i></el-col>
@@ -63,7 +64,7 @@
                 :page-sizes="[10, 15, 20, 25]"
                 :page-size=params.size
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="total">
+                :total="table.total">
         </el-pagination>
       </div>
       <!--查看详情弹出组件-->
@@ -82,26 +83,6 @@
       UserDetail
     },
     methods: {
-      //加载列表
-      search(params){
-        search(params).then(res => {
-          this.table.tableData = res.data.data;
-          this.table.total = res.data.count;
-        })
-      },
-      //查询
-      searchUserList(){
-        this.packParams();
-        this.search(this.params);
-      },
-      //重置
-      resetWhere(){
-        this.params.startDate = null;
-        this.params.endDate = null;
-        this.params.loginName = '';
-        this.params.status = null;
-        this.params.dates = '';
-      },
       //查看
       handleClick(row) {
         findById(row.id).then( res => {
@@ -120,6 +101,26 @@
           }
         })
       },
+      //加载列表
+      search(params){
+        search(params).then(res => {
+          this.table.tableData = res.data.data;
+          this.table.total = res.data.count;
+        })
+      },
+      //查询
+      searchUserList(){
+        this.packParams();
+        this.search(this.params);
+      },
+      //重置
+      resetWhere() {
+        this.params.startDate = '';
+        this.params.endDate = '';
+        this.params.loginName = '';
+        this.params.status = null;
+        this.dates = '';
+      },
       //分页change事件
       handleSizeChange(val) {
         this.packParams();
@@ -134,9 +135,10 @@
       },
       //封装查询条件
       packParams() {
-        const arr = this.params.dates.split(",");
-        this.params.startDate = arr[0],
-        this.params.endDate = arr[1]
+        if(this.dates.length > 0){
+          this.params.startDate = this.dates[0];
+          this.params.endDate = this.dates[1];
+        }
       }
     },
     //vue实例加载完成后调用列表查询
@@ -159,9 +161,8 @@
           size:10,
           loginName: '',
           status: null,
-          dates: '',
-          startDate: null,
-          endDate: null
+          startDate: '',
+          endDate: ''
         },
         table: {//列表参数
           tableData: [],
@@ -170,7 +171,8 @@
         },
         options: [{value: '1',label: '可用'}, {value: '2',label: '不可用'}],//下来框选项
         isDetailDialog: false,//是否打开详情页面弹出框
-        detailObj: {}//给详情弹出框传入要展示的对象
+        detailObj: {},//给详情弹出框传入要展示的对象
+        dates: '',//时间输入框接收值
       }
     }
   }
@@ -203,6 +205,22 @@
     },{
       prop: 'describe',
       label: '描述',
+      align: 'center'
+    },{
+      prop: 'createdBy',
+      label: '创建人',
+      align: 'center'
+    },{
+      prop: 'createdAt',
+      label: '创建时间',
+      align: 'center'
+    },{
+      prop: 'modifiedBy',
+      label: '修改人',
+      align: 'center'
+    },{
+      prop: 'modifiedAt',
+      label: '修改时间',
       align: 'center'
     }
   ]
