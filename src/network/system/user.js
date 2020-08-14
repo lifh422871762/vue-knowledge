@@ -28,3 +28,21 @@ export function findById(id) {
   })
 }
 
+//新增用户对象
+export function insert(data) {
+  return request({
+    url: '/user/insert',
+    method: 'post',
+    data: data
+  })
+}
+
+//修改用户对象
+export function update(data) {
+  return request({
+    url: '/user/update',
+    method: 'post',
+    data: data
+  })
+}
+
