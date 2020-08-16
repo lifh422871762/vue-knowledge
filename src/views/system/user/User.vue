@@ -56,13 +56,14 @@
           <h5>用户列表</h5>
         </div>
         <el-table :data="parseTableData" size="mini" border stripe style="width: 100%" highlight-current-row>
-          <el-table-column  v-for="item in table.tableColumn" :width="item.width" :prop="item.prop" :label="item.label" :align="item.align"/>
+          <el-table-column  v-for="(item,index) in table.tableColumn" :type="item.type" :width="item.width" :prop="item.prop" :label="item.label" :align="item.align"/>
           <el-table-column align="center" fixed="right" width="100px"  label="操作">
             <template slot-scope="scope">
               <el-row :gutter="0">
-                <el-col :span="8"><li class="el-icon-search" title="查看" @click="view(scope.row)"></li></el-col>
-                <el-col :span="8"><li class="el-icon-edit" title="编辑" @click="edit(scope.row)"></li></el-col>
-                <el-col :span="8"><li class="el-icon-delete" title="删除" @click="deleteById(scope.row)"></li></el-col>
+                <el-col :span="6"><li class="el-icon-search" title="查看" @click="view(scope.row)"></li></el-col>
+                <el-col :span="6"><li class="el-icon-edit" title="编辑" @click="edit(scope.row)"></li></el-col>
+                <el-col :span="6"><li class="el-icon-delete" title="删除" @click="deleteById(scope.row)"></li></el-col>
+                <el-col :span="6"><li class="el-icon-setting" title="重置密码" @click="resetPassword(scope.row)"></li></el-col>
               </el-row>
             </template>
           </el-table-column>
@@ -83,6 +84,8 @@
       <UserView :isViewDialog="isViewDialog" :viewObj="viewObj"></UserView>
       <!--添加 or 修改 from弹出组件-->
       <UserForm :isFormDialog="isFormDialog" :formObj="formObj"></UserForm>
+      <!--重置密码弹出组件-->
+      <UserResetPass :UserResetPass="UserResetPass"></UserResetPass>
     </div>
   </div>
 </template>
@@ -92,11 +95,13 @@
   import {search,deleteById,findById} from "network/system/user";
   import UserView from "./UserView";
   import UserForm from "./UserForm";
+  import UserResetPass from "./UserResetPass";
 
   export default {
     components: {
       UserView,
-      UserForm
+      UserForm,
+      UserResetPass
     },
     methods: {
       //查看
@@ -114,7 +119,6 @@
       //修改
       edit(row) {
         findById(row.id).then( res => {
-          console.log(res.data);
           this.formObj = res.data
         });
         this.isFormDialog = true;
@@ -129,6 +133,10 @@
             this.$message.error(res.data.message);
           }
         })
+      },
+      //重置密码
+      resetPassword(row) {
+        alert(row.id);
       },
       //加载列表
       search(params){
@@ -197,7 +205,8 @@
         },
         options: [{value: '1',label: '可用'}, {value: '2',label: '不可用'}],//下来框选项
         isViewDialog: false,//是否打开详情页面弹出框
-        isFormDialog: false,
+        isFormDialog: false,//是否打开form页面弹出框
+        UserResetPass: false,//是否打开重置密码页面弹出框
         viewObj: {},//给详情弹出框传入要展示的对象
         formObj: {},//修改时传入组件内回显对象
         dates: '',//时间输入框接收值
@@ -207,6 +216,13 @@
 
   //table-column循环遍历展示table列
   const column = [
+    {
+      prop: 'id',
+      label: '序列',
+      align: 'center',
+      width:'50px',
+      type: 'index'
+    },
     {
       prop: 'name',
       label: '姓名',

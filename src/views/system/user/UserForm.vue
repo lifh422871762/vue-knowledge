@@ -2,7 +2,7 @@
   <div>
     <el-dialog :title="title" :close-on-click-modal="false" @close="closeClick(ruleForm)" width="50%" :visible.sync="isFormDialog">
       <el-form :model="formObj" :rules="rules" :ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-row gutter="10">
+        <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="姓名" prop="name">
               <el-input v-model="formObj.name"></el-input>
