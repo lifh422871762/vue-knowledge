@@ -46,3 +46,14 @@ export function update(data) {
   })
 }
 
+//修改用户对象
+export function restPassword(usedPass,newPass,id) {
+  return request({
+    url: '/user/restPassword',
+    method: 'post',
+    data: {
+      usedPass,newPass,id
+    }
+  })
+}
+
