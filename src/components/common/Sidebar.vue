@@ -45,6 +45,20 @@
                             {
                                 index: 'user',
                                 title: '用户管理'
+                            },
+                            {
+                                index: 'dict',
+                                title: '字典管理'
+                            }
+                        ]
+                    },
+                    {
+                        icon: 'el-icon-star-off',
+                        title: 'Excel表核对',
+                        subs: [
+                            {
+                                index: 'overtimeCheck',
+                                title: '加班核对'
                             }
                         ]
                     },

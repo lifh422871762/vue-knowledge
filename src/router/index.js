@@ -22,6 +22,16 @@ export default new Router({
                     meta: {title: '用户管理'}
                 },
                 {
+                    path: '/dict',
+                    component: resolve => require(['views/system/dict/Dict.vue'], resolve),
+                    meta: {title: '字典管理'}
+                },
+                {
+                    path: '/overtimeCheck',
+                    component: resolve => require(['views/excelcheck/overtime/OvertimeCheck.vue'], resolve),
+                    meta: {title: '加班核对'}
+                },
+                {
                     path: '/dashboard',
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: {title: '系统首页'}
