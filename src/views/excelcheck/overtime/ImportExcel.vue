@@ -1,14 +1,17 @@
 <template>
-  <el-dialog title="导入加班核对表" :close-on-click-modal="false" @close="closeClick()" width="30%"  :visible.sync="isImportDialog">
-    <el-upload
-            class="upload-demo"
-            ref="upload"
-            action="http://127.0.0.1:8000/checkOverTime/importExcel"
-            :file-list="fileList"
-            :on-success="handleSuccess"
-            :limit="1">
-       <el-button slot="trigger" style="margin-top: 20%" size="small" type="primary">选取文件</el-button>
-    </el-upload>
+  <el-dialog title="导入加班核对表" :close-on-click-modal="false" @close="closeClick()" width="30%"
+             :visible.sync="isImportDialog">
+    <div style="text-align: center">
+      <el-upload
+        class="upload-demo"
+        ref="upload"
+        action="http://127.0.0.1:8000/checkOverTime/importExcel"
+        :file-list="fileList"
+        :on-success="handleSuccess"
+        :limit="1">
+        <el-button slot="trigger" style="margin-top: 20%" size="small" type="primary">选取文件</el-button>
+      </el-upload>
+    </div>
   </el-dialog>
 </template>
 <script>
@@ -37,3 +40,25 @@
     }
   }
 </script>
+
+<style>
+
+  .el-dialog {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*height:600px;*/
+    max-height: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+  }
+
+  .el-dialog .el-dialog__body {
+    flex: 1;
+    overflow: auto;
+  }
+
+</style>
