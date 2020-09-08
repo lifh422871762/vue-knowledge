@@ -30,6 +30,7 @@
     methods: {
       //关闭弹出框
       closeClick() {
+        this.fileList = [];
         this.$parent.isImportDialog = false;
       },
       //上传成功后的回调
