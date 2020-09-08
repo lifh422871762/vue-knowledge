@@ -7,7 +7,7 @@
         </div>
         <div style="float:right;padding-bottom: 10px;">
           <el-button type="primary" @click="openImport">导入</el-button>
-          <el-button type="success">导出</el-button>
+          <el-button type="success" @click="openExport">导出</el-button>
         </div>
         <el-table :data="table.tableData" size="mini" border stripe style="width: 100%" highlight-current-row>
           <el-table-column v-for="(item,index) in table.tableColumn" :type="item.type" :width="item.width"
@@ -44,13 +44,20 @@
       openImport() {
         this.isImportDialog = true;
       },
+      //导入
+      openExport() {
+        location.href="http://127.0.0.1:8000/checkOverTime/exportExcel"
+      },
       //加载列表
       search(params) {
         search(params).then(res => {
-          console.log(res.data.data);
           this.table.tableData = res.data.data;
           this.table.total = res.data.count;
         })
+      },
+      //查询
+      searchOverTimeCheckList() {
+        this.search(this.params);
       },
       //分页每页多少条改变change事件
       handleSizeChange(val) {
@@ -88,8 +95,8 @@
     { prop: 'dno', label: '单据号', align: 'center', width: '100px'},
     { prop: 'account', label: '账号', align: 'center', width: '100px'},
     { prop: 'name', label: '姓名', align: 'center', width: '100px'},
-    { prop: 'outCompany', label: '外包公司', align: 'center', width: '100px'},
-    { prop: 'timeType', label: '加班类型', align: 'center', width: '100px'},
+    // { prop: 'outCompany', label: '外包公司', align: 'center', width: '100px'},
+    // { prop: 'timeType', label: '加班类型', align: 'center', width: '100px'},
     { prop: 'startTime', label: '开始日期', align: 'center', width: '150px'},
     { prop: 'endTime', label: '结束日期', align: 'center', width: '150px'},
     { prop: 'timeHour', label: '加班小时数', align: 'center', width: '100px'},
@@ -98,16 +105,16 @@
     { prop: 'checkOutTime', label: '签出时间', align: 'center', width: '150px'},
     { prop: 'ceaseDay', label: '调休天数', align: 'center', width: '100px'},
     { prop: 'knotDay', label: '结算天数', align: 'center', width: '100px'},
-    { prop: 'reasonsOvertime', label: '加班事由', align: 'center', width: '100px'},
-    { prop: 'projectOvertime', label: '加班项目', align: 'center', width: '100px'},
+    // { prop: 'reasonsOvertime', label: '加班事由', align: 'center', width: '100px'},
+    // { prop: 'projectOvertime', label: '加班项目', align: 'center', width: '100px'},
     { prop: 'submitTime', label: '提交日期', align: 'center', width: '150px'},
-    { prop: 'currentStatus', label: '当前状态', align: 'center', width: '100px'},
-    { prop: 'reviewedBys', label: '已审核人', align: 'center', width: '100px'},
-    { prop: 'serviceGroup', label: '服务事业群', align: 'center', width: '100px'},
-    { prop: 'outsourceType', label: '外包类型', align: 'center', width: '100px'},
+    // { prop: 'currentStatus', label: '当前状态', align: 'center', width: '100px'},
+    // { prop: 'reviewedBys', label: '已审核人', align: 'center', width: '100px'},
+    // { prop: 'serviceGroup', label: '服务事业群', align: 'center', width: '100px'},
+    // { prop: 'outsourceType', label: '外包类型', align: 'center', width: '100px'},
     { prop: 'city', label: '所在城市', align: 'center', width: '100px'},
     { prop: 'status', label: '状态', align: 'center', width: '100px'},
-    { prop: 'statusMessage', label: '状态中文编码', align: 'center', width: '100px'}
+    { prop: 'statusMessage', label: '状态中文编码', align: 'center', width: '200px'}
   ]
 </script>
 

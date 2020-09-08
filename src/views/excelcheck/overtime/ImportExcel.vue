@@ -35,8 +35,13 @@
       },
       //上传成功后的回调
       handleSuccess(response, file, fileList) {
-        this.closeClick();
-        this.$message.success("导入成功");
+        if(response.success){
+          this.closeClick();
+          this.$parent.searchOverTimeCheckList();
+          this.$message.success(response.message);
+        } else {
+          this.$message.error(response.message);
+        }
       }
     }
   }
