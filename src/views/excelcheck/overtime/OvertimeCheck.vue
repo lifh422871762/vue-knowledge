@@ -32,6 +32,7 @@
 
 <script>
 
+  import {servicePath} from "network/path";
   import {search} from "network/excelcheck/overtime/checkOverTime";
   import ImportExcel from "./ImportExcel";
 
@@ -46,7 +47,7 @@
       },
       //导入
       openExport() {
-        location.href="http://127.0.0.1:8000/checkOverTime/exportExcel"
+        location.href= servicePath + "/checkOverTime/exportExcel";
       },
       //加载列表
       search(params) {

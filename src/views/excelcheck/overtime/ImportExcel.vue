@@ -5,7 +5,7 @@
       <el-upload
         class="upload-demo"
         ref="upload"
-        action="http://127.0.0.1:8000/checkOverTime/importExcel"
+        :action="importExcelPath"
         :file-list="fileList"
         :on-success="handleSuccess"
         :limit="1">
@@ -15,10 +15,14 @@
   </el-dialog>
 </template>
 <script>
+
+  import {servicePath} from "network/path";
+
   export default {
     data() {
       return {
-        fileList: []
+        fileList: [],
+        importExcelPath: servicePath + "/checkOverTime/importExcel"
       };
     },
     props: {
