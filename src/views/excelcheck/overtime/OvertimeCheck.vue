@@ -45,7 +45,7 @@
       openImport() {
         this.isImportDialog = true;
       },
-      //导入
+      //导出
       openExport() {
         location.href= servicePath + "/checkOverTime/exportExcel";
       },
